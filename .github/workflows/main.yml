@@ -4,14 +4,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      -name: Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v2
-      -name: Install Dependencies
+      - name: Install Dependencies
         run: npm install
-      -name: Run Tests
+      - name: Run Tests
         run: npm test
-      -name: Build Application
+      - name: Build Application
         run: npm run build
-      -name: Deploy application
+      - name: Deploy application
         run: |
           scp -i ${{secrets.SSH_PRIVATE_KEY}} -r ./dist ubuntu@ec2-34-207-160-147.compute-1.amazonaws.com:./sample-app
