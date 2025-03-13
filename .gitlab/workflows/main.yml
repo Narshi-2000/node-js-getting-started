@@ -14,5 +14,13 @@ jobs:
         run: docker build -t narshi/node-js-sample
       -name: Push Docker Image
         run: |
-          docker login -u narshi --password-stdin
+          echo "${{secrets.DOCKER_PASSWORD}}" | docker login -u narshi --password-stdin
           docker push narshi/node-js-sample
+      -name: Install SSH key
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      -name: Deploy application
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ${{secrets.SSH_PRIVATE_KEY}} ubuntu@ec2-34-207-160-147.compute-1.amazonaws.com 'cd sample-app/node-js-getting-started && git pull && ./main.sh'
+          
