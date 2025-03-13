@@ -22,5 +22,5 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       -name: Deploy application
         run: |
-          ssh -o StrictHostKeyChecking=no -i $HOME/.ssh/id_rsa ec2-user@34.207.160.147 ssh -i Downloads/sample-app-key.pem ubuntu@ec2-34-207-160-147.compute-1.amazonaws.com 'cd sample-app/node-js-getting-started && git pull && ./main.sh'
+          ssh -o StrictHostKeyChecking=no -i ${{secrets.SSH_PRIVATE_KEY}} ubuntu@ec2-34-207-160-147.compute-1.amazonaws.com 'cd sample-app/node-js-getting-started && git pull && ./main.sh'
           
