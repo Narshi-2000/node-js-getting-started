@@ -11,7 +11,7 @@ jobs:
       - name: Run Tests
         run: npm test
       - name: Build Application
-        run: npm run build
+        run: npm run predeploy
       - name: Deploy application
         run: |
           scp -i ${{secrets.SSH_PRIVATE_KEY}} -r ./dist ubuntu@ec2-34-207-160-147.compute-1.amazonaws.com:./sample-app
